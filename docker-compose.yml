@@ -1,0 +1,31 @@
+version: '3.9'
+services:
+    mysql_registroPersonas:
+        image: mysql/mysql-server:latest
+        ports:
+            - "5000:5000"
+        restart: always
+        volumes:
+            - db_volume_registroPersonas:/var/lib/mysql
+            - ./db/PersonasDatabase.sql:/docker-entrypoint-initdb.d/PersonasDatabase.sql:ro
+        command: ['mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_0900_ai_ci']
+        environment: 
+            MYSQL_ROOT_PASSWORD: "root"
+            MYSQL_HOST: localhost
+            MYSQL_DATABASE: "PersonasDatabase"
+            MYSQL_USER: "root"
+        container_name: db_Personas
+
+    #simple_app:
+    #    image: console_app_inventario
+    #    depends_on: 
+    #       - "mysql_inventario"
+    #    build: 
+    #        context: ./inventario/
+    #        dockerfile: Dockerfile
+    #    environment: 
+    #        DB_CONNECTION_STRING: "server=localhost;port=3307;user=admin;password=admin;database=inventario"
+    #    container_name: app_inventario
+
+volumes:
+    db_volume_registroPersonas:
