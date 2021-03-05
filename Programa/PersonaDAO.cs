@@ -66,7 +66,7 @@ namespace PersonasConsoleRegister
             return persona;
         }
 
-        public bool SavePersona(Persona newPersona)
+        public bool SavePersona(Persona persona)
         {
             bool isSaved = false;
             try
@@ -122,6 +122,113 @@ namespace PersonasConsoleRegister
                 connection.CloseConnection();
             }
             return isSaved;
+        }
+
+        public bool DeletePersonaByCURP(string curp)
+        {
+            bool isSaved = false;
+            if (DeletePersonaAddress(curp))
+            {
+                if (DeletePersonaMails(curp))
+                {
+                    try
+                    {
+                        mySqlConnection = connection.OpenConnection();
+                        query = new MySqlCommand("", mySqlConnection)
+                        {
+                            CommandText = "DELETE FROM Persona WHERE CURP = @personCurp"
+                        };
+
+
+                        MySqlParameter PersonaCurp = new MySqlParameter("@personCurp", MySqlDbType.VarChar, 45)
+                        {
+                            Value = curp
+                        };
+
+                        query.Parameters.Add(PersonaCurp);
+                        query.ExecuteNonQuery();
+                        isSaved = true;
+
+                    }
+                    catch (MySqlException ex)
+                    {
+                        throw;
+                    }
+                    finally
+                    {
+                        connection.CloseConnection();
+                    }
+                }
+            }
+            return isSaved;
+        }
+
+        public bool DeletePersonaMails(string curp)
+        {
+            bool isDeleted = false;
+            try
+            {
+                mySqlConnection = connection.OpenConnection();
+                query = new MySqlCommand("", mySqlConnection)
+                {
+                    CommandText = "DELETE FROM Correoselectronicos WHERE CURP = @personCurp"
+                };
+
+
+                MySqlParameter PersonaCurp = new MySqlParameter("@personCurp", MySqlDbType.VarChar, 45)
+                {
+                    Value = curp
+                };
+
+                query.Parameters.Add(PersonaCurp);
+                query.ExecuteNonQuery();
+                isDeleted = true;
+
+            }
+            catch (MySqlException ex)
+            {
+                throw;
+            }
+            finally
+            {
+                connection.CloseConnection();
+            }
+
+            return isDeleted;
+        }
+
+        public bool DeletePersonaAddress(string curp)
+        {
+            bool isDeleted = false;
+            try
+            {
+                mySqlConnection = connection.OpenConnection();
+                query = new MySqlCommand("", mySqlConnection)
+                {
+                    CommandText = "DELETE FROM Direcciones WHERE CURP = @personCurp"
+                };
+
+
+                MySqlParameter PersonaCurp = new MySqlParameter("@personCurp", MySqlDbType.VarChar, 45)
+                {
+                    Value = curp
+                };
+
+                query.Parameters.Add(PersonaCurp);
+                query.ExecuteNonQuery();
+                isDeleted = true;
+
+            }
+            catch (MySqlException ex)
+            {
+                throw;
+            }
+            finally
+            {
+                connection.CloseConnection();
+            }
+
+            return isDeleted;
         }
     }
 }

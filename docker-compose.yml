@@ -16,16 +16,16 @@ services:
             MYSQL_USER: "root"
         container_name: db_Personas
 
-    #simple_app:
-    #    image: console_app_inventario
-    #    depends_on: 
-    #       - "mysql_inventario"
-    #    build: 
-    #        context: ./inventario/
-    #        dockerfile: Dockerfile
-    #    environment: 
-    #        DB_CONNECTION_STRING: "server=localhost;port=3307;user=admin;password=admin;database=inventario"
-    #    container_name: app_inventario
+    simple_app:
+        image: personasregistro
+        depends_on: 
+           - "mysql_registroPersonas"
+        build: 
+           context: ./Programa/
+           dockerfile: Dockerfile
+        environment: 
+           DB_CONNECTION_STRING: "server=mysql_registroPersonas;port=5000;user=PersonaAdmin;password=bobcholo1;database=PersonasDatabase"
+        container_name: app_Personas
 
 volumes:
     db_volume_registroPersonas:

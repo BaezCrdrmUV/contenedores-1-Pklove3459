@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "WtKfHr+bzdDZUMY/v6evbSD2ZEpLaIUXvtKiZNIP/bzC9j1o9k2OPagRmHuQhkKmzaQR0P1h84prsOlWI1AzVQ==",
+  "dgSpecHash": "CHOihUSRHfzz9glS3V5ScONJIeDbxFZdmBhL06oAGEj5YP5cFKUvM3cNCo5xCIb/tCiw0+npSK3d3winIuOXsw==",
   "success": true,
-  "projectFilePath": "D:\\ProyectosVisualStudio\\Practica1\\Programa\\PersonasConsoleRegister.csproj",
+  "projectFilePath": "D:\\ProyectosVisualStudio\\contenedores-1-Pklove3459\\Programa\\PersonasConsoleRegister.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\delma\\.nuget\\packages\\bouncycastle.netcore\\1.8.5\\bouncycastle.netcore.1.8.5.nupkg.sha512",
     "C:\\Users\\delma\\.nuget\\packages\\google.protobuf\\3.11.4\\google.protobuf.3.11.4.nupkg.sha512",
