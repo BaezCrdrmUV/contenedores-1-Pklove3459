@@ -58,3 +58,6 @@ CREATE TABLE IF NOT EXISTS `PersonasDatabase`.`direcciones` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
+
+CREATE USER 'personaAdmin'@'%' IDENTIFIED BY 'bobcholo1';
+GRANT ALL PRIVILEGES ON PersonasDatabase.* TO 'personaAdmin'@'%' IDENTIFIED BY 'bobcholo1';

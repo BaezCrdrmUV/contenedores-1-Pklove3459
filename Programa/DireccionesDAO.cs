@@ -7,35 +7,36 @@ using System.Threading.Tasks;
 
 namespace PersonasConsoleRegister
 {
-    public class CorreoselectronicosDAO
+    class DireccionesDAO
     {
-        Correoselectronicos correoselectronicos;
+
+        Direcciones direcciones;
         private ConnecntionHandler connection;
         private MySqlConnection mySqlConnection;
         private MySqlCommand query;
         private MySqlDataReader reader;
-        private List<Correoselectronicos> listaCorreos;
+        private List<Direcciones> listaDirecciones;
 
-        public CorreoselectronicosDAO()
+        public DireccionesDAO()
         {
-            correoselectronicos = null;
+            direcciones = null;
             connection = new ConnecntionHandler();
             mySqlConnection = null;
             query = null;
             reader = null;
-            listaCorreos = null;
+            listaDirecciones = null;
         }
 
 
-        public List<Correoselectronicos> GetCorreoselectronicosByCurp(string curp)
+        public List<Direcciones> GetDireccionesByCurp(string curp)
         {
             try
             {
-                listaCorreos = new List<Correoselectronicos>();
+                listaDirecciones = new List<Direcciones>();
                 mySqlConnection = connection.OpenConnection();
                 query = new MySqlCommand("", mySqlConnection)
                 {
-                    CommandText = "SELECT * FROM Correoselectronicos WHERE CURP = @personCurp"
+                    CommandText = "SELECT * FROM Direcciones WHERE CURP = @personCurp"
                 };
 
                 MySqlParameter PersonaCurp = new MySqlParameter("@personCurp", MySqlDbType.VarChar, 45)
@@ -48,18 +49,18 @@ namespace PersonasConsoleRegister
 
                 while (reader.Read())
                 {
-                    correoselectronicos = new Correoselectronicos
+                    direcciones = new Direcciones
                     {
-                        IdCorreosElectronico = reader.GetInt32(0),
+                        IdDirecciones = reader.GetInt32(0),
                         Curp = reader.GetString(1),
-                        Correo = reader.GetString(2)
+                        Direccion = reader.GetString(2)
 
                     };
                 }
 
-                listaCorreos.Add(correoselectronicos);
+                listaDirecciones.Add(direcciones);
             }
-            catch(MySqlException ex)
+            catch (MySqlException ex)
             {
                 throw;
             }
@@ -71,10 +72,10 @@ namespace PersonasConsoleRegister
                 }
                 connection.CloseConnection();
             }
-            return listaCorreos;
+            return listaDirecciones;
         }
 
-        public bool DeleteCorreoElectronico(string correo)
+        public bool DeleteDirecciones(string direccion)
         {
             bool isDeleted = false;
 
@@ -83,16 +84,16 @@ namespace PersonasConsoleRegister
                 mySqlConnection = connection.OpenConnection();
                 query = new MySqlCommand("", mySqlConnection)
                 {
-                    CommandText = "DELETE FROM Correoselectronicos WHERE correo = @personaCorreo"
+                    CommandText = "DELETE FROM Direcciones WHERE direcciones = @personaDireccion"
                 };
 
 
-                MySqlParameter PersonaCorreo = new MySqlParameter("@personaCorreo", MySqlDbType.VarChar, 45)
+                MySqlParameter PersonaDireccion = new MySqlParameter("@personaDireccion", MySqlDbType.VarChar, 45)
                 {
-                    Value = correo
+                    Value = direccion
                 };
 
-                query.Parameters.Add(PersonaCorreo);
+                query.Parameters.Add(PersonaDireccion);
                 query.ExecuteNonQuery();
                 isDeleted = true;
 
@@ -109,7 +110,7 @@ namespace PersonasConsoleRegister
             return isDeleted;
         }
 
-        public bool SaveCorreosElectronico(Correoselectronicos correos)
+        public bool SaveDireccion(Direcciones direcciones)
         {
             bool isSaved = false;
             try
@@ -117,22 +118,22 @@ namespace PersonasConsoleRegister
                 mySqlConnection = connection.OpenConnection();
                 query = new MySqlCommand("", mySqlConnection)
                 {
-                    CommandText = "INSERT INTO Correoselectronicos(Curp, correo) " +
-                    "VALUES (@curp, @correo)"
+                    CommandText = "INSERT INTO Direcciones(Curp, direcciones) " +
+                    "VALUES (@curp, @direcciones)"
                 };
 
                 MySqlParameter curp = new MySqlParameter("@curp", MySqlDbType.VarChar, 45)
                 {
-                    Value = correos.Curp
+                    Value = direcciones.Curp
                 };
 
-                MySqlParameter correo = new MySqlParameter("@correo", MySqlDbType.VarChar, 45)
+                MySqlParameter direccion = new MySqlParameter("@direcciones", MySqlDbType.VarChar, 45)
                 {
-                    Value = correos.Correo
+                    Value = direcciones.Direccion
                 };
 
                 query.Parameters.Add(curp);
-                query.Parameters.Add(correo);
+                query.Parameters.Add(direccion);
 
                 query.ExecuteNonQuery();
 
@@ -148,5 +149,6 @@ namespace PersonasConsoleRegister
             }
             return isSaved;
         }
+
     }
 }

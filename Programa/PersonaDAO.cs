@@ -28,7 +28,7 @@ namespace PersonasConsoleRegister
                 mySqlConnection = connection.OpenConnection();
                 query = new MySqlCommand("", mySqlConnection)
                 {
-                    CommandText = "SELECT * FROM Persona WHERE CURP = @personCurp"
+                    CommandText = "SELECT * FROM persona WHERE CURP = @personCurp"
                 };
 
                 MySqlParameter PersonaCurp = new MySqlParameter("@personCurp", MySqlDbType.VarChar, 45)
@@ -230,6 +230,66 @@ namespace PersonasConsoleRegister
 
             return isDeleted;
         }
+
+
+        public bool UpdatePersona(Persona persona)
+        {
+            bool isSaved = false;
+            try
+            {
+                mySqlConnection = connection.OpenConnection();
+                query = new MySqlCommand("", mySqlConnection)
+                {
+                    CommandText = "UPDATE Persona SET Nombre = @nombre, Apellido = @apellido, " +
+                    "Estatura = @estatura, Peso =@peso WHERE Persona.CURP = @curp"
+                };
+
+                MySqlParameter curp = new MySqlParameter("@curp", MySqlDbType.VarChar, 45)
+                {
+                    Value = persona.Curp
+                };
+
+                MySqlParameter nombre = new MySqlParameter("@nombre", MySqlDbType.VarChar, 45)
+                {
+                    Value = persona.Nombre
+                };
+
+                MySqlParameter apellido = new MySqlParameter("@apellido", MySqlDbType.VarChar, 45)
+                {
+                    Value = persona.Apellido
+                };
+
+                MySqlParameter estatura = new MySqlParameter("@estatura", MySqlDbType.VarChar, 45)
+                {
+                    Value = persona.Estatura
+                };
+
+                MySqlParameter peso = new MySqlParameter("@peso", MySqlDbType.VarChar, 45)
+                {
+                    Value = persona.Peso
+                };
+
+                query.Parameters.Add(curp);
+                query.Parameters.Add(nombre);
+                query.Parameters.Add(apellido);
+                query.Parameters.Add(estatura);
+                query.Parameters.Add(peso);
+
+                query.ExecuteNonQuery();
+
+                isSaved = true;
+            }
+            catch (MySqlException ex)
+            {
+                throw;
+            }
+            finally
+            {
+                connection.CloseConnection();
+            }
+            return isSaved;
+        }
+
     }
 }
 
