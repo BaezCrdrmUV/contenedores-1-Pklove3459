@@ -6,12 +6,12 @@
 -- Schema PersonasDatabase
 -- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS `PersonasDatabase` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
-USE `PersonasDatabase` ;
+USE `PersonasDatabase`;
 
 -- -----------------------------------------------------
 -- Table `PersonasDatabase`.`persona`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `PersonasDatabase`.`persona` (
+CREATE TABLE `PersonasDatabase`.`Persona` (
   `CURP` VARCHAR(45) NOT NULL,
   `Nombre` VARCHAR(45) NULL DEFAULT NULL,
   `Apellido` VARCHAR(45) NULL DEFAULT NULL,
@@ -27,15 +27,15 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- -----------------------------------------------------
 -- Table `PersonasDatabase`.`correoselectronicos`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `PersonasDatabase`.`correoselectronicos` (
-  `idCorreosElectronico` INT NOT NULL,
+CREATE TABLE `PersonasDatabase`.`Correoselectronicos` (
+  `idCorreosElectronico` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `Curp` VARCHAR(45) NULL DEFAULT NULL,
   `correo` VARCHAR(45) NULL DEFAULT NULL,
   PRIMARY KEY (`idCorreosElectronico`),
   INDEX `Curp_idx` (`Curp` ASC) VISIBLE,
   CONSTRAINT `Curp`
     FOREIGN KEY (`Curp`)
-    REFERENCES `PersonasDatabase`.`persona` (`CURP`))
+    REFERENCES `PersonasDatabase`.`Persona` (`CURP`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
@@ -44,20 +44,15 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- -----------------------------------------------------
 -- Table `PersonasDatabase`.`direcciones`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `PersonasDatabase`.`direcciones` (
-  `idDirecciones` INT NOT NULL,
+CREATE TABLE `PersonasDatabase`.`Direcciones` (
+  `idDirecciones` INT NOT NULL AUTO_INCREMENT,
   `Curp` VARCHAR(45) NULL DEFAULT NULL,
   `direcciones` VARCHAR(255) NULL DEFAULT NULL,
   PRIMARY KEY (`idDirecciones`),
   INDEX `Curp_idx` (`Curp` ASC) VISIBLE,
   CONSTRAINT `direccionCurp`
     FOREIGN KEY (`Curp`)
-    REFERENCES `PersonasDatabase`.`persona` (`CURP`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    REFERENCES `PersonasDatabase`.`Persona` (`CURP`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
-
-CREATE USER 'personaAdmin'@'%' IDENTIFIED BY 'bobcholo1';
-GRANT ALL PRIVILEGES ON PersonasDatabase.* TO 'personaAdmin'@'%' IDENTIFIED BY 'bobcholo1';

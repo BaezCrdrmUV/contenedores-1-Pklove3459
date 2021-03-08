@@ -7,13 +7,13 @@ services:
         restart: always
         volumes:
             - db_volume_registroPersonas:/var/lib/mysql
-            - ./db/PersonasDatabase.sql:/docker-entrypoint-initdb.d/PersonasDatabase.sql:ro
+            - ./Database/PersonasDatabase.sql:/docker-entrypoint-initdb.d/PersonasDatabase.sql:ro
         command: ['mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_0900_ai_ci']
         environment: 
             MYSQL_ROOT_PASSWORD: "root"
             MYSQL_PASSWORD: "bobcholo1"
             MYSQL_HOST: localhost
-            MYSQL_DATABASE: "PersonasDatabase"
+            MYSQL_DATABASE: "personasdatabase"
             MYSQL_USER: "personaAdmin"
             MYSQL_TCP_PORT: 5000
             MYSQL_ROOT_HOST: '%'

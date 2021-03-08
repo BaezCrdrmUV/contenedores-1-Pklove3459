@@ -28,7 +28,7 @@ namespace PersonasConsoleRegister
                 mySqlConnection = connection.OpenConnection();
                 query = new MySqlCommand("", mySqlConnection)
                 {
-                    CommandText = "SELECT * FROM persona WHERE CURP = @personCurp"
+                    CommandText = "SELECT * FROM Persona WHERE CURP = @personCurp"
                 };
 
                 MySqlParameter PersonaCurp = new MySqlParameter("@personCurp", MySqlDbType.VarChar, 45)
