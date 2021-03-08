@@ -47,7 +47,7 @@ COLLATE = utf8mb4_0900_ai_ci;
 CREATE TABLE `PersonasDatabase`.`Direcciones` (
   `idDirecciones` INT NOT NULL AUTO_INCREMENT,
   `Curp` VARCHAR(45) NULL DEFAULT NULL,
-  `direcciones` VARCHAR(255) NULL DEFAULT NULL,
+  `direcciones` VARCHAR(45) NULL DEFAULT NULL,
   PRIMARY KEY (`idDirecciones`),
   INDEX `Curp_idx` (`Curp` ASC) VISIBLE,
   CONSTRAINT `direccionCurp`
