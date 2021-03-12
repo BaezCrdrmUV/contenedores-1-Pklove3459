@@ -3,7 +3,7 @@ services:
     mysql_registroPersonas:
         image: mysql/mysql-server:latest
         ports:
-            - "5000:5000"
+            - "5000:3306"
         restart: always
         volumes:
             - db_volume_registroPersonas:/var/lib/mysql
@@ -11,12 +11,9 @@ services:
         command: ['mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_0900_ai_ci']
         environment: 
             MYSQL_ROOT_PASSWORD: "root"
-            MYSQL_PASSWORD: "bobcholo1"
             MYSQL_HOST: localhost
-            MYSQL_DATABASE: "personasdatabase"
-            MYSQL_USER: "personaAdmin"
-            MYSQL_TCP_PORT: 5000
-            MYSQL_ROOT_HOST: '%'
+            MYSQL_DATABASE: "PersonasDatabase"
+            MYSQL_USER: "root"
         container_name: db_Personas
 
     simple_app:
@@ -26,8 +23,10 @@ services:
         build: 
            context: ./Programa/
            dockerfile: Dockerfile
+        stdin_open: true
+        tty: true
         environment: 
-           DB_CONNECTION_STRING: "server=mysql_registroPersonas;port=5000;user=PersonaAdmin;password=bobcholo1;database=PersonasDatabase"
+           DB_CONNECTION_STRING: "server=mysql_registroPersonas;user=PersonaAdmin;password=bobcholo1;database=PersonasDatabase"
         container_name: app_Personas
 
 volumes:

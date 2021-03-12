@@ -16,8 +16,8 @@ namespace PersonasConsoleRegister
         {
             try
             {
-                //connectionString = Environment.GetEnvironmentVariable("DB_CONNECTION_STRING");
-                connectionString = "server=localhost;port=5000;user=root;password=root;database=PersonasDatabase";
+                connectionString = Environment.GetEnvironmentVariable("DB_CONNECTION_STRING");
+                // connectionString = "server=localhost;port=5000;user=root;password=root;database=PersonasDatabase";
                 connection = new MySqlConnection(connectionString);
                 connection.Open();
             }
